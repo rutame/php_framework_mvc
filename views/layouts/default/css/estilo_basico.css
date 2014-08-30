@@ -1,0 +1,364 @@
+/*
+Copyright (C) 2014 Pedro Gabriel Manrique Gutiérrez <pedrogmanrique at gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/* 
+    Created on : 21-jun-2014, 19:22:24
+    Author     : Pedro Gabriel Manrique Gutiérrez <pedrogmanrique at gmail.com>
+*/
+
+*{
+    margin:0;
+    padding:0;
+    list-style: none;
+    font-family: verdana;font-size: 13px;color:#000;
+}
+html, body{
+    height:100%;
+    width:100%;
+    background: url("../img/bg-noise.png");
+}
+h2,h3{color:orangered;text-align: center;}
+h2{font-size:24px;}
+h3{font-size:18px;}
+a{text-decoration: none;}
+.lineag{
+    line-height: 30px;
+}
+header, footer{
+    width: 100%;
+    min-width: 480px;
+}
+h1.logotipo{
+    margin:10px 0 0 0;
+    text-shadow: 4px 4px 5px #333, 
+        2px 2px 3px #cc00cc, 
+        -2px -2px 3px #cc00cc;
+}
+header{
+    top:0;
+    height:140px;
+    float:left;
+    z-index: 1;
+}
+.top{
+    background: linear-gradient(#27f, #09f);
+}
+article{
+    margin:10px 0 0 0;
+    float:left;
+    width:100%;
+}
+.flotante{
+    float:left;
+    padding:5px;
+}
+.imagen{
+    padding: 5px;
+}
+.parrafo{
+    float:left;
+    text-align: justify;
+    font-size: 16px;
+    line-height: 150%;
+    font-family: times;
+    margin-top: 15px;
+}
+article > header{
+    display: block;
+    width:100%;
+    height:auto;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+    float:left;
+}
+article > p{
+    float:left;
+    margin-top:10px;
+    font-size:20px;
+    font-family: times;
+    width:100%
+}
+article > footer p{
+clear:both;
+    width:100%;
+    display:block;
+}
+article > footer{
+    padding:5px 0;
+    
+}
+article > footer > p, header time{
+    border-bottom: 1px solid #ddd;border-top: 1px solid #ddd;
+    padding:5px 0;
+    margin-top: 20px;
+}
+header > time{
+    background: fuchsia;
+    padding:5px;
+    float:left;
+}
+
+article > .opciones > a, a.btn{
+    display:block;
+    float:left;
+    border:1px solid #fff;
+    background: cornflowerblue ;
+    color:#fff;
+    padding:10px;
+    border-radius: 5px;
+    margin: 10px 5px 0 0;
+    text-decoration: none;
+}
+a.btnmas{
+     background: cornflowerblue url(../img/mas.png) 7px center no-repeat;
+     padding-left:40px;
+}
+article > footer .opciones a:hover, a.btn:hover{
+    box-shadow: 1px 1px 2px #333, -1px -1px 2px #333;
+}
+article header h2{
+    float:left;
+    width:100%;
+    display:block;
+    padding: 10px 0;
+    text-align: left;
+    margin:0;
+}
+header hgroup{
+    width:400px;
+    height:100%;
+    margin:0 0 0 10px;
+}
+nav#top{
+    float:left;
+    width:100%;
+    border-top: 5px #fff;
+    height: 5px;
+}
+nav#top ul.visible{
+    width:100%;
+    height:5px;
+    background: #fff;
+    float:right;
+    padding: 5px 0 0 0;
+    border-bottom: 1px solid #ddd;
+    transition: all 1s ease-in-out;
+}
+nav#top ul.menu{
+    display: none; 
+    margin:10px 0 0 0;
+    transition: all 1s ease-in-out;
+}
+
+nav#top ul.menu > li > a{
+    float:left;
+    text-decoration: none; 
+    text-shadow: 1px 1px rgba(28,28,28, 0.6);
+    color:#000; 
+    z-index: 2;
+    margin-top:10px;
+    transition: all 1s ease-in-out;
+    clear:both;
+}
+nav#top ul.menu > li a:hover {
+    border-bottom: 0px solid #fff;
+    text-shadow: 1px 1px rgba(255,222,28, 0.6);
+}
+nav#top ul.visible > li{
+    float:right;padding:10px 30px;
+    border-bottom:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-left:1px solid #ddd;
+    margin:5px 10px 0 0;
+    background: #fff;
+    color:#000;
+    border-radius: 0 0 15px 15px;
+    transition: all 1s ease-in-out;
+}
+nav#top ul.visible li:hover > ul.menu{
+    display:inline;
+    visibility: visible;
+    background: greenyellow;
+}
+
+nav#top ul.visible:hover {
+    background: greenyellow;
+}
+nav#top ul.visible li:hover{
+    background: greenyellow;
+}
+nav#top ul.visible > li{
+    float:right;
+    box-shadow: 0px 1px #ccc;
+}
+
+#contenido{
+    width: 97%;
+    min-height: 85%;
+    box-sizing: border-box;
+    padding:0 1.5%;
+}
+footer.pie{
+    width:100%;
+    float:left;
+    z-index: 1;
+    height:15%;
+    background: linear-gradient(#27f, #09f);
+}
+
+header h1{
+    color:#fff;
+    font-size: 48px;
+    text-shadow: -1px -1px #ccc, 1px 1px #ccc;
+    float:left;
+    width:480px;
+    
+}
+header h2, header h3{
+    color:#ddd;
+    text-shadow: 1px 1px #000;
+    float:right;
+    margin: 0 10px;
+}
+
+
+footer ul{
+    width:300px;
+    margin: 30px auto 0 auto;
+    position:relative;
+    
+}
+footer p{
+    display:block;
+    clear: both;
+    margin-top: 10px;
+    float: left;
+}
+
+/* bloques */
+.bloque_blanco{
+    background: #fff;
+    padding:10px;
+    border-radius: 10px;
+}
+div.bloque{
+    display:block;
+    width:300px;height: 5px;
+}
+.block{
+    display: block;
+}
+.medio{
+    width:600px;
+}
+.relativo{
+    position:relative;
+    margin: 0 auto;
+}
+.derecho{
+    float: right;
+}
+.limpia{
+    clear:both;
+    width:100%;height:5px;
+}
+/* formularios */
+#form1{
+    width:300px;
+    position:relative;
+    margin:20px auto;
+}
+.form{
+    padding:15px;
+    border: 1px solid #fff;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #09f;
+}
+textarea{
+    width:500px;
+    height:300px;
+    text-indent: 0;
+    padding:5px;
+}
+label{
+    font-weight: bolder;
+    color: #09f;
+}
+input[name="titulo"]{
+    width:490px;
+    padding:5px;
+}
+input[name="titulo"].error{
+    border:1px solid #f00;
+}
+input[name="titulo"].valid{
+    border:1px solid #27f;
+}
+.etiqueta{
+    font-size:16px;
+    padding: 5px 0;
+    margin-top:10px;
+    display: block;
+    width: 500px;
+}
+/* para formularios genéricos, botones, textarea, input */
+.btn{
+    background: #0099ff;
+    color:#fff;
+    font-weight: bolder;
+    margin-top:15px;
+    border: 1px solid #09f;
+    text-align: center;
+    padding:5px;
+    border-radius: 5px;
+}
+.long{
+    width:302px;
+}
+.entrada{
+    width:290px;
+    border:1px solid #09f;
+    padding:5px;
+    display: block;
+}
+
+/* tablas */
+table{
+    margin:10px auto;
+    min-width: 400px;
+    border-collapse:collapse;
+    border-radius: 10px;
+}
+th, td{
+    border:1px solid #09f;
+    padding:7px 10px;
+    margin:0;
+    font-size:14px;
+}
+td a{
+    color:#09f;
+    font-weight: bold;
+    text-decoration: none;
+    font-size:14px;
+}
+td a:hover{
+    color:#f00;
+}
+
+
+
+
