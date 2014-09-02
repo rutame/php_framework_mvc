@@ -17,7 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+/**
+ * @abstract
+ * @access public
+ * @version string
+ */
 abstract class Controller 
 {
     //Esta clase es abstracta para que no pueda ser instanciada.
@@ -51,7 +55,11 @@ abstract class Controller
         
     }
     
-    // Método para cargar librerias
+    /**
+     * 
+     * @param type $libreria
+     * @throws Exception Método para cargar librerias
+     */
     protected function getLibrary($libreria)
     {
         $rutaLiberia = ROOT . 'libs' . DS . $libreria . '.php';
@@ -66,7 +74,11 @@ abstract class Controller
         }
     }
     
-    // Toma la variable, la filtra y la retorna filtrada
+    /**
+     * 
+     * @param type $clave
+     * @return string Toma la variable, la filtra y la retorna filtrada
+     */
     protected function getTexto($clave) 
     {
         if(isset($_POST[$clave]) && !empty($_POST[$clave])){
@@ -85,7 +97,11 @@ abstract class Controller
         return 0;
     }
     
-   // Este método es el que viene en el vídeo tutorial, pero no funciona correctamente 
+   /**
+    * 
+    * @param type $int
+    * @return int Este método es el que viene en el vídeo tutorial, pero no funciona correctamente 
+    */
     protected function filtrarInt($int)
     {
         $int = (int) $int;
@@ -96,8 +112,13 @@ abstract class Controller
         else{
             return 0;
         }
-    }
-    // Este método sí que funciona bien
+    } 
+    
+    /**
+     * 
+     * @param type $int
+     * @return type Este método sí que funciona bien
+     */
     protected function filtrarInt2($int)
     {
         foreach ($int as $value) {
@@ -106,6 +127,10 @@ abstract class Controller
         return $entero;
     }
     
+    /**
+     * 
+     * @param type $ruta
+     */
     protected function redireccionar($ruta = false)
     {
         if($ruta){
@@ -118,6 +143,11 @@ abstract class Controller
         }
     }
     
+    /**
+     * @access public
+     * @param type $id
+     * @return type
+     */
     protected function sacaId($id)
     {
         foreach ($id as $value) {
@@ -126,6 +156,11 @@ abstract class Controller
         return $idint;
     }
     
+    /**
+     * 
+     * @param type $clave
+     * @return type
+     */
     protected function getPostParam($clave)
     {
         if(isset($_POST[$clave])):
@@ -133,7 +168,12 @@ abstract class Controller
         endif;
     }
  
-    // Sanitizar los parámetros
+    /** 
+     * 
+     * @param type $clave
+     * @return type
+     * Sanitizar los parámetros
+     */
     protected function getSql($clave)
     {
         if(isset($_POST[$clave]) && !empty($_POST[$clave])){ 
@@ -150,7 +190,12 @@ abstract class Controller
         } 
     }
     
-    // Limpiar y forzar para que el nombre de usuario Empiece por letra y pueda tener numeros y guiones
+    /** 
+     * 
+     * @param type $clave
+     * @return type
+     * Limpiar y forzar para que el nombre de usuario Empiece por letra y pueda tener numeros y guiones
+     */
     protected function getAlphaNum($clave)
     {
         if(isset($_POST[$clave]) && !empty($_POST[$clave])){
@@ -162,7 +207,9 @@ abstract class Controller
         }
     }
     
-    // Comprueba si el email tiene un formato válido
+    /**
+     * Comprueba si el email tiene un formato válido
+     */
     public function validarEmail($email)
     {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
