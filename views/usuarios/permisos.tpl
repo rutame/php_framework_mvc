@@ -1,5 +1,7 @@
 <h2>Administración de permisos de role</h2>
-<h3 class="lineag">Permisos del Usuario: {$info.usuario} | Role: {$info.role}</h3>
+{*$info|@var_dump*}
+{*$info.0.usuario*}
+<!----><h3 class="lineag">Permisos del Usuario: {$info.0.usuario} | Role: {$info.0.role}</h3>
 
 <form name="form1" method="post" action="" class="form medio relativo">
     <input type="hidden" name="guardar" value="1">
@@ -18,7 +20,7 @@
                 {/if}
                 
                 <tr>
-                    <td>{$usuaria.$pr.permiso}</td>
+                    <td>{$usuario.$pr.permiso}</td>
                     
                     <td>
                         <select name="perm_{$usuario.$pr.id}">
