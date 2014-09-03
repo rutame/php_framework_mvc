@@ -1,10 +1,11 @@
 <h2>Administración de permisos de role</h2>
 {*$info|@var_dump*}
 {*$info.0.usuario*}
+
 <!----><h3 class="lineag">Permisos del Usuario: {$info.0.usuario} | Role: {$info.0.role}</h3>
 
 <form name="form1" method="post" action="" class="form medio relativo">
-    <input type="hidden" name="guardar" value="1">
+    <inputhidden" name="guardar" value="1">
     {if isset($permisos) && count($permisos)}
         <table>
             <tr>
@@ -18,7 +19,7 @@
                 {else}
                    {assign var = "v" value="habilitado"}
                 {/if}
-                
+                 
                 <tr>
                     <td>{$usuario.$pr.permiso}</td>
                     
@@ -27,7 +28,7 @@
                             <option value="x"{if ($usuario.$pr.heredado) } 
                                     selected="selected"{/if}>Heredado({$v})</option>
                             <option value="1"{if ($usuario.$pr.valor == 1 && $usuario.$pr.heredado == "")} 
-                                    selected="selected"{/if}>Habilitado</option>
+                            selected="selected"{/if}>Habilitado</option>
                             <option value=""{if ($usuario.$pr.valor == "" && $usuario.$pr.heredado == "")} 
                                     selected="selected"{/if}>Denegado</option>
                         </select>

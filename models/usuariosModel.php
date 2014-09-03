@@ -52,7 +52,7 @@ class usuariosModel extends Model
         $sql = $this->_db->prepare("SELECT u.usuario, r.role "
                 . "FROM "
                 . "usuarios u, roles r "
-                . "WHERE u.role = r.idrole AND u.id =?");
+                . "WHERE u.role = r.idrole AND u.id = ? ");
         
                 $sql->bindparam(1, $usuarioId, PDO::PARAM_INT);
                 $sql->execute();
@@ -66,7 +66,7 @@ class usuariosModel extends Model
      * @return type Description
      * @access public
      */
-    public function getPermisoUsuario($usuarioId)
+    public function getPermisosUsuario($usuarioId)
     {
         $acl = new ACL($usuarioId);
         return $acl->getPermisos();

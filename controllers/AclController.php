@@ -68,7 +68,8 @@ class AclController extends Controller
             for($i=0; $i < count($values); $i++){
                 if(substr($values[$i], 0, 5)== "perm_"):
                     if($_POST[$values[$i]] == 'x'):
-                       $eliminar[] = array('role' => $id, 'permiso' => substr($values[$i], -1));
+                       $eliminar[] = array('role' => $id, 
+                           'permiso' => str_replace('perm_',"", $values[$i]));
                     else:
                         if($_POST[$values[$i]] == 1):
                             $v = 1;

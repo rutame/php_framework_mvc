@@ -22,11 +22,19 @@
  */
 class ACL
 {
+    /**
+     * @var type Description
+     * @var type 
+     */
     private $_db;
     private $_id;
     private $_role;
     private $_permisos;
     
+    /**
+     * 
+     * @param type $id
+     */
     public function __construct($id = false)
     {
         if($id){
@@ -129,7 +137,7 @@ class ACL
     {
         $permisoId = (int) $permisoId;
         
-        $key = $this->_db->query("SELECT permiso FROM permisos WHERE idpermiso = '$permisoId' ");
+        $key = $this->_db->query("SELECT permiso FROM permisos WHERE idpermiso = $permisoId ");
         
         $key = $key->fetch();
         
@@ -139,6 +147,7 @@ class ACL
     public function getPermisosUsuario()
     {
         $ids = $this->getPermisosRoleId();
+        
         if(!empty($ids)):
         $permisos = $this->_db->query(
                 "SELECT * FROM permisos_usuarios WHERE "
@@ -198,10 +207,14 @@ class ACL
      */
     public function acceso($key)
     {
+        Session::tiempo();
+        
         if($this->permiso($key)){
+            Session::tiempo();
             return;
         }
         
         \header("location:" . BASE_URL . "error/access/5050");
+        exit();
     }
 }

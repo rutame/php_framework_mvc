@@ -37,7 +37,7 @@ class registroController extends Controller
         $this->_view->assign("titulo","Registro de Usuarios");
         
         if($this->getInt('enviar') == 1){
-            $this->_view->datos = $_POST;
+            $this->_view->assign('datos', $_POST);
             
             if(!$this->getSql('nombre')){
                 $this->_view->assign('_error',"Debe introducir el nombre");
@@ -113,7 +113,7 @@ class registroController extends Controller
             $mail->addAddress($this->getPostParam('email'));
             $mail->send();
             
-            $this->_view->datos = false;        
+            $this->_view->assign('datos', false);        
             $this->_view->assign('_mensaje', "Registro compleatado, revise su email para activar su cuenta");
             
         }
@@ -129,8 +129,8 @@ class registroController extends Controller
         }
         
         $row = $this->_registro->getUsuario(
-                $this->filtrarInt($id),
-                $this->filtrarInt($codigo)
+                $this->filtrarInt2($id),
+                $this->filtrarInt2($codigo)
                 );
         
         if(!$row){

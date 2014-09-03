@@ -1,9 +1,10 @@
 <h3>La Vista de Los Posts</h3>
-{* if Session::accesoView('especial') *}
+{if $_acl->permiso('nuevo_post') }
 <p><a href="{$_layoutParams.root}post/nuevo" class="btn btnmas">Agregar Post</a></p>
-{* /if *}
+{/if }
 
-{*$posts|@var_dump*}
+{* $posts|@var_dump *}
+{*$_acl|@var_dump*}
 {if isset($posts)} 
     
     {foreach $posts as $post}
@@ -38,8 +39,10 @@
             
             <div class="opciones">
             <a href="{$_layoutParams.root}post/imprimir/{$post.id}" clas="btn">imprimir</a>
-            {if $_acl->permiso('editar')}
+            {if $_acl->permiso('editar_post')}
                 <a href="{$_layoutParams.root}post/editar/{$post.id}">Editar Post</a>
+            {/if}
+            {if $_acl->permiso('eliminar_post')}
                 <a href="{$_layoutParams.root}post/eliminar/{$post.id}">Borrar Post</a>
             {/if}
             </div>

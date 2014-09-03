@@ -132,7 +132,7 @@ class Session
         }
         
         if($noAdmin == FALSE){
-            if(Session::get('level') == 'admin'){
+            if(Session::get('level') == "Administrador"){
                 return true;
             }
         }

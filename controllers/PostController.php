@@ -28,6 +28,10 @@ class PostController extends Controller
         parent::__construct();
         $this->_post = $this->loadModel('post');
     }
+    
+    /**
+     * llama al index
+     */
     public function index()
     {
         //$this->getLibrary('paginador');
@@ -183,7 +187,7 @@ class PostController extends Controller
      */
     public function editar($id)
     {
-        Session::acceso('admin');
+        //Session::accesoViewEstricto('Administrador');
         if(!$this->sacaId($id)){
             $this->redireccionar('post');
         }

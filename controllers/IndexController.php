@@ -21,7 +21,7 @@
 class IndexController extends Controller
 {
     public $_postPdf;
-
+    public $_prueba;
     
     public function __construct() 
     {
@@ -30,6 +30,11 @@ class IndexController extends Controller
 
     public function index()
     {   
+        
+        //echo Session::get('level');
+        //var_dump($_SESSION);exit();
+        ///$gpu = new ACL();
+        //var_dump($gpu->getPermisosUsuario());exit;
         //var_dump($this->_acl->getPermisos());exit;
         $this->_view->assign('titulo','Portada');
         $this->_view->renderizar('index', 'inicio');

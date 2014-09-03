@@ -21,6 +21,10 @@ class PostModel extends Model{
         parent::__construct();
     }
     
+    /**
+     * 
+     * @return type
+     */
     public function getPosts()
     {
         try {

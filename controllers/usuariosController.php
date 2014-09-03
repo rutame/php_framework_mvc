@@ -23,6 +23,8 @@ class usuariosController extends Controller
     /**
      *
      * @var type _usuarios
+     * @access public
+     * 
      */
     private $_usuarios;
     
@@ -34,18 +36,26 @@ class usuariosController extends Controller
     
     /**
      * Asigna los usuarios a usuarios
+     * @access public
      */
     public function index()
     {
+        if($this->_acl->permiso('admin_access') == TRUE):
         $this->_view->assign('titulo', 'Usuarios');
         $this->_view->assign('usuarios', $this->_usuarios->getUsuarios());
         $this->_view->renderizar('index');
+        
+        else:
+        \header("location:" . BASE_URL . "error/access/5050");
+        endif;
     }
     
     /**
      * Hace de todo
+     * @access public
+     * @author Pedro Gabriel Manrique Gutiérrez <pedrogmanrique at gmail.com>
      */
-    public function permisos()
+    public function permisos($usuarioId)
     {
         $id = $this->filtrarInt2($usuarioId);
         
@@ -60,16 +70,18 @@ class usuariosController extends Controller
             $this->guardar();
         endif;
         
+        //var_dump($this->_usuarios->getUsuario($id));
+        
         $permisosUsuario = $this->_usuarios->getPermisosUsuario($id);
         $permisosRole = $this->_usuarios->getPermisosRole($id);
         
-        if(!$permisosRole || !$permisosRole):
+        if(!$permisosUsuario || !$permisosRole):
             $this->redireccionar('usuarios');
         endif;
         
         $this->_view->assign('titulo', 'Permisos de usuario');
         
-        //$this->_view->assign('role', $row);
+
         $this->_view->assign('permisos', array_keys($permisosUsuario));
         $this->_view->assign('usuario', $permisosUsuario);
         $this->_view->assign('role', $permisosRole);
@@ -79,6 +91,11 @@ class usuariosController extends Controller
         
     }
     
+    /**
+     * Método llamado desde el método permisos() para cambiar y eliminar permisos
+     * @access public
+     * @version string
+     */
     public function guardar()
     {
         $values = array_keys($_POST);
@@ -90,7 +107,7 @@ class usuariosController extends Controller
                     if($_POST[$values[$i]] == 'x'):
                        $eliminar[] = array(
                            'usuario' => $id, 
-                           'permiso' => substr($values[$i], -1));
+                           'permiso' => str_replace("perm_", "", $values[$i]));
                     else:
                         if($_POST[$values[$i]] == 1):
                             $v = 1;
@@ -106,12 +123,12 @@ class usuariosController extends Controller
             }
             
             for($i=0; $i < count($eliminar); $i++){
-                $this->_aclm->eliminarPermisoRole($eliminar[$i]['usuario'],
+                $this->_usuarios->eliminarPermisoRole($eliminar[$i]['usuario'],
                                                   $eliminar[$i]['permiso']); 
             }
             
             for($i=0; $i<count($replace); $i++){
-                $this->_aclm->editarPermisoRole($replace[$i]['usuario'],
+                $this->_usuarios->editarPermisoRole($replace[$i]['usuario'],
                                                 $replace[$i]['permiso'],
                                                 $replace[$i]['valor']); 
             }
