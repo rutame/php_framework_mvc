@@ -207,8 +207,6 @@ class ACL
      */
     public function acceso($key)
     {
-        Session::tiempo();
-        
         if($this->permiso($key)){
             Session::tiempo();
             return;
