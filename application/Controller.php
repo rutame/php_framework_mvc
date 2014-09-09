@@ -18,6 +18,9 @@
  */
 
 /**
+ * Modificada para ser modular
+ * version 0.1a
+
  * @abstract
  * @access public
  * @version string
@@ -25,24 +28,44 @@
 abstract class Controller 
 {
     //Esta clase es abstracta para que no pueda ser instanciada.
+    /**
+     * Atributos
+     * @var type 
+     */
     protected $_view;
     protected $_acl;
+    protected $_request;
 
 
     public function __construct() {
         $this->_acl = new ACL();
-        $this->_view = new View(new Request(), $this->_acl);
+        $this->_request = new Request();
+        $this->_view = new View($this->_request, $this->_acl);
     }
 
     // Este método abstracto obliga a que todas las clases que heredan de controller 
     // implemente un método index por obligación aunque no tenga código
     abstract public function index();
     
-    // Importa los modelos
-    protected function loadModel($modelo)
+    /**
+     * Importa los modelos
+     * @version string
+     */
+    protected function loadModel($modelo, $modulo = FALSE)
     {
         $modelo = $modelo . 'Model';
         $rutaModelo = ROOT . 'models' . DS . $modelo . '.php';
+        
+        // Usar módulo o controlador
+        if(!$modulo){
+            $modulo = $this->_request->getModulo();
+        }
+        
+        if($modulo){
+            if($modulo != 'default'){
+               $rutaModelo = ROOT.'modules'.DS.$modulo.DS.'models'.DS.$modelo.'.php'; 
+            }
+        }
         
         if(is_readable($rutaModelo)){
             require_once $rutaModelo;

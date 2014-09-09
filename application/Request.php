@@ -17,11 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Modificado para que sea modular
+ * versión 0.1a
+ */
 class Request
 {
+    private $_modulo;
     private $_controlador;
     private $_metodo;
     private $_argumentos;
+    private $_modules;
     
     public function __construct() 
     {
@@ -30,8 +36,37 @@ class Request
             $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL);
             $url = explode('/', $url);
             $url = array_filter($url);
-        
-            $this->_controlador = strtolower(array_shift($url)); //el primero
+            
+            // Para el modulo
+            // Conseguir 2 tipos de direcion: 
+            // 1 modulo/controlador/metodo/argumentos
+            // 2 controlador/metodo/argumentos
+            
+            $this->_modules = array('usuarios'); // En esta array colocamos los modulos que vamos creando.
+            $this->_modulo = strtolower(array_shift($url));
+            
+            if(!$this->_modulo){
+                $this->_modulo = FALSE;
+            }
+            else{
+                if(count($this->_modules)){
+                    if(!in_array($this->_modulo, $this->_modules)){
+                        $this->_controlador = $this->_modulo;
+                        $this->_modulo = FALSE;
+                    }
+                    else{
+                        $this->_controlador = strtolower(array_shift($url));
+                        if(!$this->_controlador){
+                            $this->_controlador = 'index';
+                        }
+                    }
+                }
+                else{
+                    $this->_controlador = $this->_modulo;
+                        $this->_modulo = FALSE;
+                    }
+            }
+
             $this->_metodo = strtolower(array_shift($url)); // el segundo
             $this->_argumentos = $url; // coge el resto como argumentos
         }
@@ -47,14 +82,41 @@ class Request
         if(!isset($this->_argumentos)){
             $this->_argumentos = array();
         }
+        
+        //echo $this->_modulo . '/' . $this->_controlador . '/' . $this->_metodo . '/'; 
+    //print_r($this->_argumentos);
+    //exit();
     }
     
+    /**
+     * 
+     * @return type
+     */
+    public function getModulo()
+    {
+        return $this->_modulo;
+    }
+    
+    /**
+     * 
+     * @return type
+     */
     public function getControlador(){
         return $this->_controlador;
     }
+    
+    /**
+     * 
+     * @return type
+     */
     public function getMetodo(){
         return $this->_metodo;
     }
+    
+    /**
+     * 
+     * @return type
+     */
     public function getArgumentos(){
         return $this->_argumentos;
     }

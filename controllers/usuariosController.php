@@ -15,23 +15,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * version 0.1
  */
 
 class usuariosController extends Controller
 {
-    /**
-     *
-     * @var type _usuarios
-     * @access public
-     * 
-     */
     private $_usuarios;
     
     public function __construct()
     {
         parent::__construct();
-        $this->_usuarios = $this->loadModel('usuarios');
     }
     
     /**
@@ -40,98 +32,6 @@ class usuariosController extends Controller
      */
     public function index()
     {
-        if($this->_acl->permiso('admin_access') == TRUE):
-        $this->_view->assign('titulo', 'Usuarios');
-        $this->_view->assign('usuarios', $this->_usuarios->getUsuarios());
-        $this->_view->renderizar('index');
-        
-        else:
-        \header("location:" . BASE_URL . "error/access/5050");
-        endif;
-    }
-    
-    /**
-     * Hace de todo
-     * @access public
-     * @author Pedro Gabriel Manrique Gutiérrez <pedrogmanrique at gmail.com>
-     */
-    public function permisos($usuarioId)
-    {
-        $id = $this->filtrarInt2($usuarioId);
-        
-        if(!$id){
-            $this->redireccionar('usuarios');
-        }
-        
-        if($this->getInt('guardar') === 1):
-            /**
-             *  Añadido a un método
-             */
-            $this->guardar();
-        endif;
-        
-        //var_dump($this->_usuarios->getUsuario($id));
-        
-        $permisosUsuario = $this->_usuarios->getPermisosUsuario($id);
-        $permisosRole = $this->_usuarios->getPermisosRole($id);
-        
-        if(!$permisosUsuario || !$permisosRole):
-            $this->redireccionar('usuarios');
-        endif;
-        
-        $this->_view->assign('titulo', 'Permisos de usuario');
-        
-
-        $this->_view->assign('permisos', array_keys($permisosUsuario));
-        $this->_view->assign('usuario', $permisosUsuario);
-        $this->_view->assign('role', $permisosRole);
-        $this->_view->assign('info', $this->_usuarios->getUsuario($id));
-        
-        $this->_view->renderizar('permisos'); 
-        
-    }
-    
-    /**
-     * Método llamado desde el método permisos() para cambiar y eliminar permisos
-     * @access public
-     * @version string
-     */
-    public function guardar()
-    {
-        $values = array_keys($_POST);
-            $replace = array();
-            $eliminar = array();
-            
-            for($i=0; $i < count($values); $i++){
-                if(substr($values[$i], 0, 5)== "perm_"):
-                    if($_POST[$values[$i]] == 'x'):
-                       $eliminar[] = array(
-                           'usuario' => $id, 
-                           'permiso' => str_replace("perm_", "", $values[$i]));
-                    else:
-                        if($_POST[$values[$i]] == 1):
-                            $v = 1;
-                        else:
-                            $v = 0;
-                        endif;
-                        $replace[] = array(
-                            'usuario' => $id, 
-                            'permiso' => substr($values[$i], -1), 
-                            'valor' => $v);
-                    endif;
-                endif;
-            }
-            
-            for($i=0; $i < count($eliminar); $i++){
-                $this->_usuarios->eliminarPermisoRole($eliminar[$i]['usuario'],
-                                                  $eliminar[$i]['permiso']); 
-            }
-            
-            for($i=0; $i<count($replace); $i++){
-                $this->_usuarios->editarPermisoRole($replace[$i]['usuario'],
-                                                $replace[$i]['permiso'],
-                                                $replace[$i]['valor']); 
-            }
-        
+ 
     }
 }

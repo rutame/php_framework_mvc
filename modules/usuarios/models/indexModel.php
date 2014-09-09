@@ -18,7 +18,7 @@
  * version 0.1
  */
 
-class usuariosModel extends Model
+class indexModel extends Model
 {
     public function __construct()
     {

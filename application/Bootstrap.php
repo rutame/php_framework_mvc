@@ -17,15 +17,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Modificada para ser modular
+ * version 0.1a
+ */
+
 class Bootstrap
 {
     public static function run(Request $peticion)
     {
-        
-        $controller = $peticion->getControlador(). 'Controller';
+        $modulo = $peticion->getModulo();
+        $controller = $peticion->getControlador() . 'Controller';
         $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
         $metodo = $peticion->getMetodo();
         $args = $peticion->getArgumentos();
+        
+        // para el modulo
+        if($modulo){
+            $rutaModulo = ROOT . 'controllers' . DS . $modulo . 'Controller.php';
+            
+            if(is_readable($rutaModulo)){
+                require_once $rutaModulo;
+                $rutaControlador = 
+                        ROOT . 'modules' . DS . $modulo . DS . 'controllers' . DS . $controller . '.php';
+            }
+            else {
+                throw new Exception("Error de base de modulo");
+            }
+        }
+        else {
+            $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php'; 
+        }
+        
+        //echo $rutaControlador;
+        //        exit();
         
         if(is_readable($rutaControlador))
         {
