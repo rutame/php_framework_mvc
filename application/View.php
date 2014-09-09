@@ -21,15 +21,29 @@ require_once ROOT . 'libs' . DS . 'smarty' . DS . 'libs' . DS . 'Smarty.class.ph
 
 class View extends Smarty{
 
-    private $_controlador;
+    private $_request;
     private $_js;
     private $_acl;
+    private $_rutas;
     
     public function __construct(Request $peticion, ACL $_acl) {
         parent::__construct();
         $this->_acl = $_acl;
-        $this->_controlador = $peticion->getControlador();
+        $this->_request = $peticion;
         $this->_js = array();
+        $this->_rutas = array();
+        
+        $modulo = $this->_request->getModulo();
+        $controlador = $this->_request->getControlador();
+        
+        if($modulo){
+            $this->_rutas['view'] = ROOT.'modules'.DS.$modulo.DS.'views'.DS.$controlador.DS;
+            $this->_rutas['js'] = BASE_URL . 'modules/' .$modulo . '/views/' . $controlador . '/js/'; 
+        }
+        else{
+            $this->_rutas['view'] = ROOT . 'views' . DS .$controlador . DS;
+            $this->_rutas['js'] = BASE_URL . 'views/' . $controlador . '/js/'; 
+        }
     }
     
     /**
@@ -99,16 +113,13 @@ class View extends Smarty{
                 'app_company'=>APP_COMPANY )
         );
         
-        $rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.tpl';
+        //var_dump($this->_rutas);
+         //       exit();
         
-        if(is_readable($rutaView)){
-            // no requeridos al usar smarty
-            //include_once ROOT . 'views' . DS . 'layouts' . DS . DEFAULT_LAYOUT . DS . 'header.php';
-            //include_once $rutaView;
-            //include_once ROOT . 'views' . DS . 'layouts' . DS . DEFAULT_LAYOUT . DS . 'footer.php';
-            
-            $this->assign('_contenido', $rutaView);
-            
+        //$rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.tpl';
+        
+        if(is_readable($this->_rutas['view'] . $vista . '.tpl')){
+            $this->assign('_contenido', $this->_rutas['view'] . $vista . '.tpl');
         }
         else{
             throw new Exception('Error de vista');
@@ -129,7 +140,7 @@ class View extends Smarty{
     {
         if(is_array($js) && count($js)){
             for($i=0; $i < count($js); $i++){
-                $this->_js[] = BASE_URL . 'views/' . $this->_controlador . '/js/' . $js[$i] . '.js';
+                $this->_js[] = $this->_rutas['js'] . $js[$i] . '.js';
             }
         }
         else{
