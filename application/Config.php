@@ -34,6 +34,6 @@
     define('DB_HOST','localhost');
     define('DB_NAME','aprendomvcbd');
     define('DB_USER','pedro');
-    define('DB_PASS','pega2');
+    define('DB_PASS','1234');
     define('DB_CHAR','utf8');
 
